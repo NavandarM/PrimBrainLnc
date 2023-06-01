@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% extends 'BaseIndex.html' %}
+<html lang="en">
+
+  {% block content %}
+
+  {% load static %}
+ 
+  <head>
+  <title>FAQ Page</title>
+  <style>
+      body {
+          font-family: Arial, sans-serif;
+          max-width: 800px;
+          margin: 0 auto;
+          padding: 20px;
+      }
+      h1 {
+          text-align: center;
+      }
+      .question {
+          font-weight: bold;
+          margin-top: 30px;
+      }
+      .answer {
+          margin-left: 20px;
+          margin-bottom: 30px;
+      }
+  </style>
+</head>
+<body>
+    <div class="container">
+  <h1>Frequently Asked Questions</h1>
+  <div class="question"> What are the class code?</div> 
+  <div class="answer"> The Code represents the relationship between the lncRNA transcript and closest reference transcript of individual species. Below is the summar detailed representation of the class codes.
+    <img  class="d-block w-100" src="{% static "images/FAQ_ClassCodes.png" %}" alt="Image unavailable 03!">[Adapted from Pertea G and Pertea M. GFF Utilities: GffRead and GffCompare. F1000Research 2020, 9:304 DOI: 10.12688/f1000research.23297.1]
+  </div>
+
+  <div class="question">Which brain regions are the source of the data used to predict lncRNAs?</div>
+  <div class="answer"> We used publicly available <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6071643/">dataset</a> includes data from the brain regions such cerebellum (CB), striatum (STR), hippocampus (HIP), anterior cingulate cortex (ACC), dorsolateral prefrontal cortex (DPFC), ventrolateral prefrontal cortex (VPFC),  premotor
+    cortex (PMC), primary visual cortex (V1C) across different primates like human (n = 4 - 6), chimpanzee (n = 5 - 6), gorilla (n = 2) and a gibbon. ['n' represents number of samples] </div>
+  
+  <div class="question">How are lncRNAs and its orthologs predicted?</div>
+  <div class="answer">Please follow the method section from manuscript (link will be provided once published!) </div>
+
+  <div class="question">How overlap is considered during search based on the genome location?</div>
+  <div class="answer"> The specified length of overlap is added to start and end position of the original co-ordinates provided during search. Default value is 0.</div>
+ 
+</div>
+</body>
+
+
+  
+  {% endblock %}
+
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+{% extends 'BaseIndex.html' %}
+{% load static %}
+{% load humanize %}
+
+
+<html lang="en">
+
+<head>
+
+</head>
+
+    {% block content %}
+
+    {% if Ids_results %}
+    {% for entry in Ids_results %}
+      <input type="hidden" id="lncRNA-id" value="{{ entry.LncRNA_id }}" />
+      <input type="hidden" id="organism-id" value="{{ entry.Organism }}" />
+    <div class="card" id="ResultForm">
+
+      <h5 class="card-header">LncRNA Id: {{entry.LncRNA_id}} | Organism: {{entry.Organism}}  </h5>
+      
+      <div class="card-body">
+        <div class="row">
+        <div class="col-sm-4">
+        <h5 class="card-title">Genome Locations</h5>
+        <ul>
+          <li id="ChrLoc">Location: {{entry.Chr}}: {{entry.Start}}  - {{entry.End}} ( {{entry.Strand}} )</li>
+          <li>Promoter (Start - End): {{entry.Promoter_start}} - {{entry.Promoter_end}} </li>
+          <li>Transcription start site: {{entry.TSS}} </li>
+          <li>Transcript length: {{entry.Length}} </li>
+          <li>Number of Exons: {{entry.Exon_number}} </li>
+        </ul>
+          
+        <h5 class="card-title">Transcript Type: </h5>
+          <ul>
+              <li>Class: {{entry.Tr_Class}} </li>
+              <li>Direction: {{entry.Tr_Direction}} </li>
+              <li>Location: {{entry.Tr_Location}} </li>
+          </ul>
+
+        <h5 class="card-title">Overlap: </h5>
+          <ul>
+            <li>Overlaping gene: {{entry.Overlap_gene_id}} <a href="https://www.ncbi.nlm.nih.gov/gene/?term={{entry.Overlap_gene_id}}">NCBI</a>   <a href="https://www.genecards.org/cgi-bin/carddisp.pl?gene={{entry.Overlap_gene_id}}&keywords={{entry.Overlap_gene_id}}">   GeneCard </a> </li>
+            <li>Class code: {{entry.Class_code}}</li>
+          </li>
+        </ul> 
+        
+        <h5 class="card-title">Expression: </h5>
+        <ul>
+          <li>Expression status: {{entry.Expression_status}} 
+                  {% if entry.Organism == "Human" and entry.Expression_status == "Differentially_Expressed" %}
+                    
+                      <li> Regions: {{entry.DEG_Human}}  </li>
+                    
+                  {% endif %}
+
+                  {% if entry.Organism == "Chimp" and entry.Expression_status == "Differentially_Expressed"  %}
+                  
+                    <li> Regions: {{entry.DEG_Chimp}} </li>
+                  
+                  {% endif %}
+
+          </li>
+          </ul>
+        </div>
+              <div class="col-sm-8">
+                    {{graph | safe}}
+              </div> 
+      </div>
+
+
+
+          <h5 class="card-title"> Orthologs: </h5>
+          <div class="table-responsive" style="overflow-y: hidden">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Organism</th>
+                <th scope="col">Orthologs</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+              <th scope="row"> Human </th>
+              <td>
+                {% for ort1 in hsa_ortho %}
+                {% if ort1 != "nan"%}
+                <a href="{% url 'Application:results-from-ids' lncIDs=ort1 OrgS='Human'%}">{{ort1}}</a>
+                {% endif %}
+                {% endfor  %} 
+              </td>
+              </tr>
+              
+              <tr>
+              <th scope="row"> Chimp </th>
+              <td>
+                {% for ort2 in pan_ortho %}
+                {% if ort2 != "nan"%}
+                <a href="{% url 'Application:results-from-ids' lncIDs=ort2 OrgS='Chimp'%}">{{ort2}}</a>
+                {% endif %}
+                {% endfor %}
+              </td>
+              </tr>
+
+              <tr>
+              <th scope="row"> Gorilla </th>
+              <td>
+                {% for ort3 in gor_ortho %}
+                {% if ort3 != "nan"%}
+                <a href="{% url 'Application:results-from-ids' lncIDs=ort3 OrgS='Gorilla'%}">{{ort3}}</a>
+                {% endif %}
+                {% endfor %}
+              </td>
+              </tr>
+
+              <tr>
+              <th scope="row"> Gibbon </th>
+              <td>
+                {% for ort4 in gib_ortho %}
+                {% if ort4 != "nan"%}
+                <a href="{% url 'Application:results-from-ids' lncIDs=ort4 OrgS='Gibbon'%}">{{ort4}}</a>
+                {% endif %}
+                {% endfor%}
+              </td>
+              </tr>
+          </table>
+        </div>
+        
+        <div>
+            <h5 class="card-title"> Sequence: </h5>
+
+            <input type="hidden" id="sequence-input" value="{{ entry.Sequence }}" />
+            <table>
+              <tr>
+                <td><button type="button" id="show-sequence-btn" class="btn btn-outline-dark"> Show sequence <i class="hand pointer icon"> </i> </button> </td>
+                <td><button type="button" id="download-sequence-btn" onclick="downloadSequence()" class="btn btn-outline-dark" > Download Sequence<i class="download icon"></i></button></td>
+                <td><button type="button" id="hide-sequence-btn" style="display: none;" class="btn btn-outline-dark"> Hide Sequence <i class="eye slash icon"></i> </button></td>
+              </tr>
+            </table>
+            <div id="formatted-sequence"></div> <br>
+        </div>
+
+        <div>
+        <h5 class="card-title"> Visuals in UCSC genome browser: </h5>
+          <iframe src="http://genome.ucsc.edu/cgi-bin/hgTracks?db={{browser_org}}&position={{entry.Chr}} : {{entry.Start}}  - {{entry.End}}" frameborder="0"  style="width:100%; height:500px;overflow:auto;"></iframe>
+         <!-- <h5 class="card-title">Expression plot:</h5> -->
+         <!-- <img src="data:image/png;base64, {{ graph | safe}}", alt="No Image"> -->
+         <!-- {{graph | safe}} -->
+        </div>
+        
+    </div>
+    
+    {% endfor %}
+    {% endif %}
+
+    <!-- Block for the results of multiple search -->
+    {% if MultiIds_results %}
+    <div class="card">
+    <h5 class="card-header">Multiple Ids for Organism: {{Organism}}  </h5>
+    <div class="card-body">
+          
+    {% for Ids in MultiIds_results %}
+      <br><a href="{% url 'Application:results-from-ids' lncIDs=Ids OrgS=Organism %}">{{Ids}}</a><br><hr>
+    
+    {% endfor %}
+    </div>
+    </div>
+    {% endif %}
+
+    <!-- For the blast results: -->
+    {% if Blast_results %}
+    <div class="card">
+    <h5 class="card-header">Blast results against {{Database_selection}} database </h5>
+    <div class="card-body">
+      
+      <div class="table-responsive"> {{Blast_results|safe}} <br> </div>
+
+    </div>
+    </div>
+   {% endif %}
+
+    <!-- Javascript for sequence handling and formatting! -->
+    <script>
+      // Define the line length
+      var lineLength = 79;
+    
+      // Retrieve the sequence string from Django
+      var sequence = document.getElementById("sequence-input").value;
+      var Id = document.getElementById("lncRNA-id").value;
+      var Organism_name = document.getElementById("organism-id").value;
+    
+      // Function to format the sequence
+      function formatSequence() {
+        // Split the sequence into lines of the specified length
+        var lines = [];
+        for (var i = 0; i < sequence.length; i += lineLength) {
+          lines.push(sequence.substr(i, lineLength));
+        }
+         // Add the additional line at the beginning
+        lines.unshift(">"+Id+"_"+Organism_name);
+
+    
+        // Join the lines with a line break
+        var formattedSequence = lines.join("<br>");
+        var forSequence = lines.join("\n");
+    
+        // Return the formatted sequence
+       
+        return {
+                formattedSequence: formattedSequence,
+                forSequence: forSequence
+          };
+      }
+    
+      // Show sequence function
+      function showSequence() {
+        // Get the formatted sequence
+        var result_seq = formatSequence();
+        var formattedSequence = result_seq.formattedSequence;
+
+        // Display the formatted sequence
+        document.getElementById("formatted-sequence").innerHTML = formattedSequence;    
+    
+        // Show the "Hide Sequence" and "Download Sequence" buttons
+        document.getElementById("hide-sequence-btn").style.display = "inline";
+        document.getElementById("download-btn").style.display = "inline";
+      }
+    
+      // Hide sequence function
+      function hideSequence() {
+        // Clear the formatted sequence
+        document.getElementById("formatted-sequence").innerHTML = "";
+    
+        // Hide the "Hide Sequence" and "Download Sequence" buttons
+        document.getElementById("hide-sequence-btn").style.display = "none";
+        document.getElementById("download-btn").style.display = "none";
+      }
+    
+      // Attach click event listeners to the buttons
+      document.getElementById("show-sequence-btn").addEventListener("click", showSequence);
+      document.getElementById("hide-sequence-btn").addEventListener("click", hideSequence);
+    
+
+      // Attach click event listener to the download button
+      document.getElementById("download-sequence-btn").addEventListener("click", function() {
+        // Get the formatted sequence
+        var result_seq = formatSequence();
+        var forSequence = result_seq.forSequence;
+
+        // Create a download link
+        var link = document.createElement("a");
+        link.href = "data:text/plain;charset=utf-8," + encodeURIComponent(forSequence);
+        link.download = Id + "sequence.fastq";
+
+        // Trigger the download
+        link.click();
+      });
+    </script>
+    
+
+{% endblock %}
+
+</html>
+
+

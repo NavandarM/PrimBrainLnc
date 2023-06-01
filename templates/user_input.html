@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+{% extends 'BaseIndex.html' %}
+<html lang="en">
+  {% block content %}
+
+  <head>
+    <style>
+    .vl {
+      border-left: 6px solid green;
+      height: 500px;
+    }
+  </style>
+
+  </head>
+
+    {% if submitted %}
+
+    <div class="card">
+    <h5 class="card-header">Message:</h5>
+    <div class="card-body">
+      <div class="ui positive message header">
+        <center>Thank you for sharing your thoughts! We recieved your opinion!</center>
+      </div>
+      
+
+    {% else %}
+  
+  <div class="card">
+  <div class="row">
+  <div class="col-sm-7">
+  <h5 class="card-header">Write to us:</h5>
+  <div class="card-body">
+      <form action="" method=POST>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit" class="btn btn-dark">
+      </form>
+  </div>
+  </div>
+
+  <div class="col-sm-5">
+  <h5 class="card-header">Contacts:</h5>
+  <div class="card-body">
+      <h5> Prof. Susanne Gerber </h5>
+      <ul>
+        <li> Email: sugerber@uni-mainz.de </li>
+        <li> Phone: +49(0)61313927331 </li>
+        <li> Instiute: Institute of Human Genetics, <br> University Medical Center, Mainz, Germany </li>
+      </ul>
+
+      <h5> Mohit Navandar </h5>
+      <ul>
+        <li> Email: navmohit@uni-mainz.de </li>
+        <li> Phone: +49(0)61313920141 </li>
+        <li> Instiute: Institute of Human Genetics, <br> University Medical Center, Mainz, Germany  </li>
+      </ul>
+  </div>
+  </div>
+  </div>
+
+    {% endif %}
+
+    
+  {% endblock %}
+    
+</html>

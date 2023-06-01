@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+{% extends 'BaseIndex.html' %}
+{% load static %}
+<html lang="en">
+
+{% block content %}
+  <head>
+  <style> 
+  
+  .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: #747575 !important;
+}
+
+  </style>
+  </head>
+
+<div class="card">
+  <div class="card-header">
+    <h5 class="card-title">LncRNA id: </h5>
+  </div>
+  <div class="row">
+    <div class="col-sm-5">
+  <div class="card-body" >
+    <form action="" method="post">
+      {{ form1.as_p }}
+      {% csrf_token %}
+        <input type="submit" value="Search" name="Idss" class="btn btn-primary btn-sm border-light" id = "Form1">  
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+      {% endif %}
+      <p> <u> Example: </u>  <br> lncRNA id: TCONS_00068882 <br> Organims: Human</p>
+    </form>
+  </div>
+  </div>
+
+  <div class="col-sm-7">
+  <div class="card-body" >
+    <form action="" method="post">
+      {{ form4.as_p }}
+      {% csrf_token %}
+        <input type="submit" value="Search" name="MultiIds" class="btn btn-primary btn-sm border-light" >  
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+      {% endif %}
+      <p> <u> Example: </u> <br> lncRNA ids: TCONS_00068882, TCONS_00076921, TCONS_00093062, TCONS_00101557, TCONS_00104818, TCONS_00012173, TCONS_00027634, TCONS_00057785  <br> Organims: Human</p>
+    </form>
+  </div>
+  </div>
+</div>
+</div>
+
+
+<br>
+
+<div class="card">
+    <div class="card-header">
+      <h5 class="card-title">Genome location: </h5>
+    </div>
+    <div class="card-body " >
+      <form action="" method="post">
+        
+        {{ form2.as_p }}
+        {% csrf_token %}
+          <input type="submit" value="Search" name="Locations" class="btn btn-primary btn-sm border-light" >  
+          
+          {% if messages %}
+          <ul class="messages">
+              {% for message in messages %}
+              <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+              {% endfor %}
+          </ul>
+        {% endif %}
+        <p> <u> Example: </u>  <br> lncRNA co-ordinates: chr22: 35152655 - 35394060 <br> Organims: Human</p>
+      </form>
+    </div>
+  </div>
+      
+      <br>
+      
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title">Sequence: </h5>
+        </div>
+        <div class="card-body">
+          <p>Please select the blast database. Blast database allows user to check similarities/identities of the query with specific organism or all four organism available in the database</p>
+      <form action="" method="post">
+        
+        {{ form3.as_p }}
+        {% csrf_token %}
+        <input type="submit" value="Seqence search" name="Sequences" class="btn btn-dark">
+      </form>
+    </div>
+  </div>
+
+      <br>
+      <!-- <div class="card">
+        <div class="card-header">
+          <h5 class="card-title"> Ortholog search </h5>
+        </div>
+        <div class="card-body">
+      <form action="", method="post">
+        {{form4.as_p}}
+        {% csrf_token %}
+        <input type="submit" value="Orthologs search" name="Orthologous" class="btn btn-dark" id ="ORT">
+        {% if messages %}
+          <ul class="messages">
+              {% for message in messages %}
+              <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+              {% endfor %}
+          </ul>
+        {% endif %}
+      </form>
+    </div>
+  </div>
+  <script>
+    var vid = document.getElementById("ORT");
+    vid.onwaiting = function() {
+      alert("Wait! I need to buffer the next frame");
+    };
+    </script> -->
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+  {% endblock %}
+  
+</html>

@@ -1,0 +1,8 @@
+# BLASTN 2.9.0+
+# Query: TCONS_00068882_Human
+# Database: localdb/humandb
+# Fields: query acc.ver, subject acc.ver, % identity, alignment length, mismatches, gap opens, q. start, q. end, s. start, s. end, evalue, bit score
+# 2 hits found
+TCONS_00068882_Human	TCONS_00068882	100.000	3145	0	0	1	3145	1	3145	0.0	5808
+TCONS_00068882_Human	TCONS_00068884	100.000	616	0	0	1	616	1	616	0.0	1138
+# BLAST processed 1 queries

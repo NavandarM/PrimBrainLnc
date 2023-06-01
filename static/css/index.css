@@ -1,0 +1,45 @@
+.Rang{
+
+    color:burlywood;
+}
+
+* {
+    box-sizing: border-box;
+  }
+
+.column {
+    float: left;
+    width: 50%;
+    padding: 10px;
+    height: 300px; /* Should be removed. Only for demonstration */
+  }
+
+  .section1{
+    background-color:#11181e;
+    width:50%;
+    float:left;
+    height:100vh;
+    border-right: 1vw solid #F5E5D6; 
+      box-sizing: border-box;
+      margin:0;
+      padding:0;	
+  }
+  .section2{
+    background-color:#f1c40f;
+    width:50%;
+    float:left;
+    height:100vh;
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+  }
+
+  label.radio-inline {
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+  .my-table td {
+    text-align: center;
+}
+

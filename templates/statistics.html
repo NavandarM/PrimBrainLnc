@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+{% extends 'BaseIndex.html' %}
+<html lang="en">
+
+  {% block content %}
+
+  {% load static %}
+  <br>
+
+  <head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .question {
+            font-weight: bold;
+            margin-top: 30px;
+        }
+        .answer {
+            margin-left: 20px;
+            margin-bottom: 30px;
+        }
+        td{
+            text-align: center; 
+            vertical-align: middle;
+        }
+        th{
+            text-align: center; 
+            vertical-align: middle;
+        }
+    </style>
+  </head>
+
+
+<div class="card">
+  <h5 class="card-header">Overview of lncRNAs information:</h5>
+    <div class="card-body">
+      <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+            <th scope="col">Organism</th>
+            <th scope="col">lncRNAs</th>
+            <th scope="col">Files</th>
+          </tr>
+        </thead>
+       
+          <tr>
+          <th scope="row"> Human </th>
+          <td> 12725 </td>
+          <td> <a href="{% static "files/Hsapiens_Pure_lncrnas.gtf" %}">GTF</a>&nbsp; <a href="{% static "files/Human_pure_lncRNAs.bed" %}">BED</a> </td>
+          </tr>
+          
+          <tr>
+          <th scope="row"> Chimp </th>
+          <td> 7916 </td>
+          <td> <a href="{% static "files/Chimp_pure_lncRNAs.gtf" %}">GTF</a>&nbsp; <a href="{% static "files/Chimp_pure_lncRNAs.bed" %}">BED</a> </td>
+          </tr>
+
+          <tr>
+          <th scope="row"> Gorilla </th>
+          <td> 4113 </td>
+          <td> <a href="{% static "files/Gorilla_pure_lncRNAs.gtf" %}">GTF</a> <a href="{% static "files/Gorilla_pure_lncRNAs.bed" %}">BED</a> </td>
+          </tr>
+
+          <tr>
+          <th scope="row"> Gibbon </th>
+          <td> 3109 </td>
+          <td> <a href="{% static "files/Gibbon_pure_lncRNAs.gtf" %}">GTF</a> <a href="{% static "files/Gibbon_pure_lncRNAs.bed" %}">BED</a> </td>
+          </tr>
+       
+      </table>
+    </div>
+  </div>
+
+    <br>
+    
+    <div class="card">
+      <h5 class="card-header"> Frequently Asked Questions (FAQs):</h5>
+        <div class="card-body">
+        
+          <div class="question">Which brain regions and species were considered as the source of the data to predict lncRNAs? </div>
+          <div class="answer"> We used publicly available <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6071643/">dataset</a> includes data from the brain regions such cerebellum (CB), striatum (STR), hippocampus (HIP), anterior cingulate cortex (ACC), dorsolateral prefrontal cortex (DPFC), ventrolateral prefrontal cortex (VPFC),  premotor
+            cortex (PMC), primary visual cortex (V1C) across different primates like human (n = 4 - 6), chimpanzee (n = 5 - 6), gorilla (n = 2) and a gibbon. ['n' represents number of samples] </div>
+          
+          <div class="question"> What are the class code?</div> 
+          <div class="answer"> The Code represents the relationship between the lncRNA transcript and closest reference transcript of individual species. Below is the summar detailed representation of the class codes.
+            <br><img  src="{% static "images/FAQ_ClassCodes.png" %}" alt="Image unavailable 03!" height="auto" width="auto"><br>[Adapted from Pertea G and Pertea M. GFF Utilities: GffRead and GffCompare. F1000Research 2020, 9:304 DOI: 10.12688/f1000research.23297.1]
+          </div>
+
+          <div class="question">How are lncRNAs and its orthologs predicted?</div>
+          <div class="answer">Please follow the method section from manuscript (link will be provided once published!) </div>
+        
+          <div class="question">How the overlap is considered while searching the database based on the genome location?</div>
+          <div class="answer"> The specified length of overlap is added to start and end position of the original co-ordinates provided during the search. Default value is 0.</div>
+                   
+
+
+          </div>
+          </div>
+  
+  {% endblock %}
+
+</html> 

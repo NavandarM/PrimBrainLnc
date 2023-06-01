@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% extends 'BaseIndex.html' %}
+{% load static %}
+
+<html lang="en">
+  {% block content %}
+      <h1>Search results:</h1>
+    
+      {% for entry in Total_Entries %}
+      <div class="card">
+        <h5 class="card-header">LncRNA: {{entry.LncRNA_uid}} Organism: {{entry.Organism}}  </h5>
+        <div class="card-body">
+          <h5 class="card-title">Genome Locations</h5>
+          <ul>
+            <li>Chromosme Location: {{entry.Chr}} : {{entry.Start}}  - {{entry.End}} ( {{entry.Strand}} )</li>
+            <li>TSS: {{entry.TSS}} </li>
+            <li>Promoter Start - End : {{entry.Promoter_start}} - {{entry.Promoter_end}}  </li>
+            <li>Length: {{entry.Length}} </li>
+            <li>Numbe of Exons: {{entry.Exon_number}} </li>
+            <li>Length of each exons: {{entry.Exon_number}} </li>
+            <li>Starting position of exons: {{entry.Exon_start_pos}} </li>
+            <li>Transcript Type:
+                <li>Class: {{entry.Tr_Class}} </li>
+                <li>Direction: {{entry.Tr_Direction}} </li>
+                <li>Location: {{entry.Tr_Location}} </li>
+            </li>
+            <li>Overlaping scenario:
+              <li>Overlaping gene:{{entry.Overlap_gene_id}}</li>
+              <li>Class code: {{entry.Class_code}}</li>
+            </li>
+          </ul>
+          <h5 class="card-title">Expression and Orthologs</h5>
+          <li>Expression status: {{entry.Expression_status}} </li>
+          <li>Nearest protein coding gene (ENS id): {{entry.Nearest_pcg_ens}} </li>
+          <li>Nearest protein coding gene (Name): {{entry.Nearest_pcg_name}} </li>
+          <li>Distance to nearest protein coding gene: {{entry.Nearest_pcg_dist}} </li>
+              
+        </div>
+      </div>
+       
+      {% endfor %}
+    {% endblock %}
+
+</html>

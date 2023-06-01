@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% extends 'BaseIndex.html' %}
+{% load static %}
+{% load humanize %}
+
+<html lang="en">
+
+
+    {% block content %}
+    <div class="card">
+
+        <h5 class="card-header"> Result:    </h5>
+
+        <div class="card-body">  {{Warn}}   </div>       
+
+    </div>
+
+    {% endblock %}
+
+
+</html>
