@@ -30,6 +30,13 @@ def confirm_organism(value):
         raise forms.ValidationError("Please enter the correct name")
 
 
+# Check if sequence field has indeed fasta sequence:
+def Is_fasta_file(Content):
+    line = Content.strip()
+    # Check if the first line starts with '>'
+    if not line.startswith('>'):
+        raise forms.ValidationError("Please enter sequence(s) in fasta format")
+
 
 ## Creat a User Opinion form:
 
@@ -88,9 +95,9 @@ class ExplorationForm(forms.Form):
         Overlap = cleaned_data.get("Overlap")
 
 class ExploreFormSeq(forms.Form):
-    Sequence = forms.CharField(required=False,widget=forms.Textarea(attrs={'class': 'form-control','rows':5,'placeholder':'>Fasta_header \n ATCGTACGTGCAGATGATGCA'}), label=mark_safe("<strong>Sequence (Blast search)</strong>"))
+    Sequence = forms.CharField(required=True,widget=forms.Textarea(attrs={'class': 'form-control','rows':5,'placeholder':'>Fasta_header \n ATCGTACGTGCAGATGATGCA'}), validators=[Is_fasta_file], label=mark_safe("<strong>Sequence (Blast search)</strong>"))
     organism_choices = [('Human', 'Human'), ('Chimp', 'Chimpanzee'), ('Gorilla', 'Gorilla'), ('Gibbon', 'Gibbon')]
-    Organism_db= forms.MultipleChoiceField(choices=organism_choices, required=False, widget=forms.CheckboxSelectMultiple(attrs={'class': 'form-check form-check-inline',}), label="Select database")
+    Organism_db= forms.MultipleChoiceField(choices=organism_choices, required=True, widget=forms.CheckboxSelectMultiple(attrs={'class': 'form-check form-check-inline',}), label="Select database")
     def clean(self):
         cleaned_data = super().clean()
         Sequence = cleaned_data.get("Sequence")

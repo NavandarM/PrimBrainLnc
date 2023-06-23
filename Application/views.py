@@ -178,31 +178,34 @@ def run_blast(input_file, database_name):
     # Execute the blastn command
     subprocess.run(blastn_cmd, shell=True)
 
-    Blast_output = pd.read_csv(out_path,sep='\t', header=None)
-    new_headers = ['Query', 'Hit_in_Database', 'Per identity', 'Alignment length', 'Mismatches', 'Gap opens', 'Qurey start', 'Qurey end', 'Hit start', 'Hit end', 'E-value', 'Bit score']
-    Blast_output.columns = new_headers
-    #Blast_output['Hit_in_Database'] = Blast_output['Hit_in_Database'].apply(create_hyperlink)
 
-    print(Blast_output)
-    
-    #Blast_output = Blast_output.rename(columns={"Hit_in_Database": "Hit in Database"})  # column renamed
-    Blast_output_subset = Blast_output[['Query', 'Hit_in_Database', 'Per identity', 'Alignment length', 'Mismatches', 'Hit start', 'Hit end', 'E-value', 'Bit score']]
-    Blast_output_subset['Hit_in_Database'] = Blast_output_subset['Hit_in_Database'].apply(create_hyperlink)
-    #Blast_output_subset['Hit_in_Database'] = Blast_output_subset.apply(create_hyperlink, axis=1)
+    if is_file_not_empty(out_path):
+        Blast_output = pd.read_csv(out_path,sep='\t', header=None)
+        new_headers = ['Query', 'Hit_in_Database', 'Per identity', 'Alignment length', 'Mismatches', 'Gap opens', 'Qurey start', 'Qurey end', 'Hit start', 'Hit end', 'E-value', 'Bit score']
+        Blast_output.columns = new_headers
+        #Blast_output['Hit_in_Database'] = Blast_output['Hit_in_Database'].apply(create_hyperlink)
 
-    Blast_output_subset= Blast_output_subset.to_html(index=False, header=True, classes='table table-bordered', justify='center')
+        print(Blast_output)
+        
+        #Blast_output = Blast_output.rename(columns={"Hit_in_Database": "Hit in Database"})  # column renamed
+        Blast_output_subset = Blast_output[['Query', 'Hit_in_Database', 'Per identity', 'Alignment length', 'Mismatches', 'Hit start', 'Hit end', 'E-value', 'Bit score']]
+        Blast_output_subset['Hit_in_Database'] = Blast_output_subset['Hit_in_Database'].apply(create_hyperlink)
+        #Blast_output_subset['Hit_in_Database'] = Blast_output_subset.apply(create_hyperlink, axis=1)
 
-    Blast_output_subset = unescape(Blast_output_subset)  ## To get ride of &lt; AND &gt
+        Blast_output_subset= Blast_output_subset.to_html(index=False, header=True, classes='table table-bordered', justify='center')
 
-    print(Blast_output_subset)
-    return mark_safe(Blast_output_subset)
+        Blast_output_subset = unescape(Blast_output_subset)  ## To get ride of &lt; AND &gt
 
+        print(Blast_output_subset)
+        return mark_safe(Blast_output_subset)
+    else:
+        return('No hit for the given query!')
 
-# def create_hyperlink(row):
-#     lncRNA_Id, Organism = row['Hit_in_Database'].rsplit('_', maxsplit=1)
-#     url = f"/Applicationresults_from_ids/{lncRNA_Id}/{Organism}"
-#     return format_html('<a href="{}">{}</a>', url, row['Hit_in_Database'])
+## To check if blast output file is empty
+def is_file_not_empty(file_path):
+    return os.path.getsize(file_path) > 0
 
+## To give hyperlink to blast hits from database
 def create_hyperlink(Hit_in_Database):
     lncRNA_Id, Organism = Hit_in_Database.rsplit('_', 1)
     url = reverse('Application:results-from-ids', args=(lncRNA_Id.strip(), Organism.strip()))
@@ -212,17 +215,7 @@ def create_hyperlink(Hit_in_Database):
     url = reverse('Application:results-from-ids', args=(lncRNA_Id, Organism))
     return mark_safe(f'<a href="{url}">{Hit_in_Database}</a>')
 
-
-def split_the_header(query):
-    for i in query:
-        parts = query[i].split("_")
-        if len(parts) == 3:
-            output = parts[0] + "_" + parts[1], parts[2]
-            print(output)
-        else:
-            print("Invalid format")
-
-
+## Process the input of the browse webpage.
 def Explore(request):
     
     if request.method == 'POST':
@@ -231,13 +224,15 @@ def Explore(request):
         seq_search_form = ExploreFormSeq(request.POST)
         multipleID_search_form = ExploreMultipleIds(request.POST)
 
-        ### Id based search
+        ### IDs based search
 
         if id_search_form.is_valid() and request.POST.get('Idss'):
             IDS = request.POST.get("ID").strip()
             ORG = request.POST.get("Organism").capitalize().strip()
             Organism_dictionary = {"Human":"hg19","Chimp":"panTro4","Gorilla":"gorGor4","Gibbon":"nomLeu3"}
             ORG_Id= Organism_dictionary[ORG]
+
+            ## Query based on the input IDs AND extracting information.
 
             if IDS and ORG:
                 Ids_query = GeneralInfo.objects.all().filter(LncRNA_id__iexact=IDS, Organism__iexact=ORG )
@@ -264,7 +259,8 @@ def Explore(request):
                 Location_pattern= re.compile(r'(\S+):(\S+)-(\S+)')
                 Location_group = Location_pattern.search(Position.replace(" ",""))
                 q_CHR, q_START, q_END = Location_group.groups()
-                ## To allow overlap:
+                
+                ## To allow overlap if user interested, otherwise default is zero!:
                 if Overlap:
                     if int(Overlap) > 0 or int(Overlap) < 0:
                         Overlap= int(Overlap)
@@ -277,14 +273,15 @@ def Explore(request):
                     q_START1 = int(q_START)
                     q_START2= int(q_START)
                     q_END1 = int(q_END)
+
                 Organism_dictionary = {"Human":"hg19","Chimp":"panTro4","Gorilla":"gorGor4","Gibbon":"nomLeu3"}
                 ORG_Id= Organism_dictionary[ORG]
-
-                #Location_Chr = GeneralInfo.objects.raw( '''Select * from Organism_Table where Chr=%s AND Start=%s AND End= %s''', [Q_CHR, int(Q_START), int(Q_END)] ) 
-                #Location_Chr = GeneralInfo.objects.all().filter(Q(Chr=q_CHR), Q(Start__gte=q_START1) | Q(Start__lte=q_START2), Q(End__gte=q_START) | Q(End__lte=q_END1), Q(Organism__iexact=Org) )
+                
+                ## Query based on the input co-ordinates + overlap if any AND extracting information.
                 Location_query = GeneralInfo.objects.all().filter(Chr__iexact=q_CHR, Start__range=(q_START1, q_START2), End__range=(q_START,q_END1), Organism__iexact=ORG )
                 ortho = query_processor(Location_query, ORG )
                 LncID = ortho[4]
+
                 Box_Plot = Data_preparation(organism=ORG, lncRNA_Id= LncID)
 
                 if isinstance(ortho, list):
@@ -296,9 +293,12 @@ def Explore(request):
                 messages.info(request, 'Please specify Location and Organism!')
                 return HttpResponseRedirect('/ApplicationExplore/')
         
+        ### Sequence based search
+        
         if seq_search_form.is_valid() and request.POST.get('Sequences'):
             Sequence = request.POST.get("Sequence")
             database_name = seq_search_form.cleaned_data['Organism_db']
+            db_names_str = ', '.join(database_name)
             print(database_name)
             fasta_filename =  os.path.join(settings.STATIC_DIR,'Tmp','Tmp_sequence.fasta')
             with open(fasta_filename, 'w') as fasta_file:
@@ -306,23 +306,10 @@ def Explore(request):
 
             Blast_results = run_blast(fasta_filename, database_name)
 
-            # context={
-
-            #             'Query':Blast_results[0],
-            #             'Hit_from_db':Blast_results[1],
-            #             'Per_identity':Blast_results[2],
-            #             'Alignment_length':Blast_results[3],
-            #             'mismatches':Blast_results[4],
-            #             'Hit_start':Blast_results[8],
-            #             'Hit_end':Blast_results[9],
-            #             'Evalue':Blast_results[10],
-            #             'Bit_score':Blast_results[11],
-            #             'Database_selection':database_name,
-            #     }
-            # GenomePrep= prepareGenome(database_name)
-
-            return render(request,'results.html', {'Blast_results': Blast_results, 'Database_selection':database_name,})
+            return render(request,'results.html', {'Blast_results': Blast_results, 'Database_selection':db_names_str,})
         
+        ### Search based on multiple IDs as input
+
         if multipleID_search_form.is_valid() and request.POST.get('MultiIds'):
             Multi_IDs = request.POST.get("MultiIDs")
             Organism = request.POST.get("Organism")
@@ -335,22 +322,10 @@ def Explore(request):
                 messages.info(request, 'Please enter the list and specify the organism!')
                 return HttpResponseRedirect('/ApplicationExplore/')
 
-        # if ortho_search_form.is_valid() and request.POST.get('Orthologous'):
-        #     Orthologs1= request.POST.get("Orthologs1")
-        #     Orthologs2= request.POST.get("Orthologs2")
-        #     lncRNAs_id = request.POST.get("lncRNAs_id")
-        #     print(Orthologs1)
-        #     print(Orthologs2)
-        #     print(lncRNAs_id)
-        #     Query = OrthoInfy.objects.all().select_related().filter(lncRNA1uid_id__exact="hsa_TCONS_00068882")
-        #     #Query="Hello!"
-        #     return render(request, 'results.html', {'Result_ortho':Query})
-
     else:
         id_search_form= ExplorationFormByIDs()
         Loc_search_form = ExplorationForm()
         seq_search_form = ExploreFormSeq()
         multipleID_search_form = ExploreMultipleIds()
-        #ortho_search_form = OrthologsForm()
 
-    return render(request, 'explore.html', {'form1': id_search_form, 'form2':Loc_search_form, 'form3': seq_search_form, 'form4': multipleID_search_form})   #'form4': ortho_search_form
+    return render(request, 'explore.html', {'form1': id_search_form, 'form2':Loc_search_form, 'form3': seq_search_form, 'form4': multipleID_search_form})
