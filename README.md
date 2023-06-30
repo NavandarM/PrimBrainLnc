@@ -9,8 +9,8 @@ git clone https://github.com/NavandarM/PrimBrainLnc.git
 sudo apt-get update
 sudo apt install python3-virtualenv
 python3 -m venv myvirtual
-pip install django
 source myvirtual/bin/activate
+pip install django
 pip install -r requirements.txt  #[ "requirements.txt" is given along with the database and contains dependencies. ]
 sudo apt-get install python3-tk 
 ```
