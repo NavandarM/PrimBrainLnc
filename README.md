@@ -4,7 +4,7 @@ A database for brain lncRNAs from human and non-human primates
 ## How to get the database?
 git clone https://github.com/NavandarM/PrimBrainLnc.git
 
-## prerequisite
+## Prerequisite
 sudo apt-get update
 sudo apt install python3-virtualenv
 python3 -m venv myvirtual
