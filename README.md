@@ -6,12 +6,12 @@ git clone https://github.com/NavandarM/PrimBrainLnc.git
 
 ## Prerequisite
 ```bash
-sudo apt-get update\
-sudo apt install python3-virtualenv \
-python3 -m venv myvirtual \
-pip install django \
-source myvirtual/bin/activate \
-pip install -r requirements.txt  #[ "requirements.txt" is given along with the database and contains dependencies. ] \
+sudo apt-get update
+sudo apt install python3-virtualenv
+python3 -m venv myvirtual
+pip install django
+source myvirtual/bin/activate
+pip install -r requirements.txt  #[ "requirements.txt" is given along with the database and contains dependencies. ]
 sudo apt-get install python3-tk 
 ```
 ## How to run the server?
