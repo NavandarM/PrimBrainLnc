@@ -29,7 +29,7 @@ subdirectories:
   - urls.py: This file contains URL patterns of this project. this file allows to mapping URL paths to views.
   - wsgi.py and asgi.py: These files are entry points for WSGI (Web Server Gateway Interface) and ASGI (Asynchronous Server Gateway Interface) servers respectively.
     
-App Directory (Application):
+__App Directory (Application):__
 
  - Provides separate files for different task i.e. encapsulate specific functionality.
 
@@ -42,6 +42,10 @@ Files and directories:
   - tests.py: This file contains unit tests for testing the functionality of the app.
   - migrations/: This directory contains database migrations created for the app. Migrations are used to propagate changes made to models into the database schema.
 
-static/: This directory is used to store static files (e.g., CSS, JavaScript, images, software, temporary files generated ).
+__static/:__
 
-templates/: This directory contains HTML templates used to render views for the app.
+- This directory is used to store static files (e.g., CSS, JavaScript, images, software, temporary files generated ).
+
+__templates/:__
+
+- This directory contains HTML templates used to render views for the app.
