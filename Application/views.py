@@ -29,10 +29,6 @@ class  IndexView(TemplateView):
         HomePageContent['insert_content'] = 'Welcome to PrimBrainLnc'
         return HomePageContent
 
-# def index(request):
-#     Nazara = {'insert_content':"Welcome to PrimBrainLnc!"}
-
-#     return render(request,'index.html', context=Nazara)
 
 def search(request):
     Queries = GeneralInfo.objects.all()
@@ -63,7 +59,7 @@ def userArea(request):
             submitted= True
     return render(request, 'user_input.html',{'form':form, 'submitted':submitted})
 
-#### Function of splitting the string into specific pattern
+#### Function of splitting the string into a specific pattern
 def query_processor( query_entity, organism_entity ):
 
     if query_entity:
