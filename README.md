@@ -22,6 +22,7 @@ python manage.py runserver 0.0.0.0:8000
 Project Directory (PrimeOrthoLnc):
 
 - This is the main directory containing the entire Django project.
+  
 subdirectories:
   - manage.py: A command-line utility allows to interact with Django project. Use it to run and update the database server.
   - settings.py: This file contains configuration settings of PrimOrthoLnc
