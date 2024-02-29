@@ -16,3 +16,6 @@ sudo apt-get install python3-tk
 ```
 ## How to run the server?
 python manage.py runserver 0.0.0.0:8000 
+
+## Details of the directories and files:
+
