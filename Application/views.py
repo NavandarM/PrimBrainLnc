@@ -47,6 +47,7 @@ def contact(request):
 def faqs(request):
     return render(request, 'faqs.html')
 
+# View: User Feedback
 def userArea(request):
     submitted = False
     if request.method == 'POST':
