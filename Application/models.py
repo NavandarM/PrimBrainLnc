@@ -4,7 +4,8 @@ from tokenize import Name
 from django.db import models
 from django.forms import EmailField
 
-# Create your models here.
+
+# General information of lncRNAs
 
 class GeneralInfo(models.Model):
     LncRNA_id = models.CharField(max_length=25)
