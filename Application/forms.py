@@ -70,7 +70,6 @@ class UserMessageForm(ModelForm):
 #### Forms with search section ######
 #####################################
 
-
 class ExplorationFormByIDs(forms.Form):
     ID = forms.CharField(required=False, max_length=30, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'TCONS_00000001'}), label=mark_safe("<strong>Id</strong>"))
     organism_choices = [('Human', 'Human'), ('Chimp', 'Chimpanzee'), ('Gorilla', 'Gorilla'), ('Gibbon', 'Gibbon')]
