@@ -5,7 +5,7 @@ from django.db import models
 from django.forms import EmailField
 
 
-# General information of lncRNAs
+# Model for: General information of lncRNAs
 
 class GeneralInfo(models.Model):
     LncRNA_id = models.CharField(max_length=25)
@@ -42,6 +42,7 @@ class GeneralInfo(models.Model):
     class Meta:
         db_table= "General_Info"
 
+# Model for: User Information
 
 class UserOpinion(models.Model):
     Name= models.CharField(max_length=25)
