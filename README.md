@@ -19,7 +19,7 @@ python manage.py runserver 0.0.0.0:8000
 
 ## Details of the directories and files:
 
-Project Directory (PrimeOrthoLnc):
+__Project Directory (PrimeOrthoLnc):__
 
 - This is the main directory containing the entire Django project.
   
