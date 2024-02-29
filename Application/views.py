@@ -17,9 +17,6 @@ from django.utils.safestring import mark_safe  # Remove if not used!
 from django.utils.html import format_html
 from html import unescape
 
-#from django.template  import RequestContext
-
-# Create your views here.
 
 
 class  IndexView(TemplateView):
