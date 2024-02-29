@@ -52,4 +52,5 @@ __templates/:__
 
 __population_script.py__
 
-- To populate the PrimOrthoLnc database with the dataset (__Input_for_database_GeneralInfo_sequenceupdated.txt__)
+- To populate the PrimOrthoLnc database with the dataset.
+- Dataset file:__Input_for_database_GeneralInfo_sequenceupdated.txt__
