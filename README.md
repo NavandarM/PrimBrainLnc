@@ -49,3 +49,7 @@ __static/:__
 __templates/:__
 
 - This directory contains HTML templates used to render views for the app.
+
+__population_script.py__
+
+- To populate the PrimOrthoLnc database with the dataset (__Input_for_database_GeneralInfo_sequenceupdated.txt__)
