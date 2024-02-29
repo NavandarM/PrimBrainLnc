@@ -29,23 +29,19 @@ subdirectories:
   - urls.py: This file contains URL patterns of this project. this file allows to mapping URL paths to views.
   - wsgi.py and asgi.py: These files are entry points for WSGI (Web Server Gateway Interface) and ASGI (Asynchronous Server Gateway Interface) servers respectively.
     
-App Directories:
+App Directory (Application):
 
- encapsulate specific functionality.
-Each app typically has its own directory within the project.
-Each app directory contains various files and subdirectories, including:
-models.py: This file defines the data models for the app. It typically contains Python classes that subclass django.db.models.Model.
-views.py: This file contains view functions or classes that handle HTTP requests and return HTTP responses.
-urls.py: Each app may have its own URL configuration to handle requests specific to that app.
-forms.py: If your app requires any custom forms, they are typically defined in this file.
-admin.py: This file is used to register models with the Django admin interface for managing data via the admin site.
-tests.py: This file contains unit tests for testing the functionality of the app.
-migrations/: This directory contains database migrations created for the app. Migrations are used to propagate changes made to models into the database schema.
-static/: This directory is used to store static files (e.g., CSS, JavaScript, images) specific to the app.
+ - Provides separate files for different task i.e. encapsulate specific functionality.
+
+Files and directories:
+  - models.py: This file defines the data models/schema for the application.
+  - views.py: This file contains view functions or classes that handle HTTP requests and return HTTP responses.
+  - urls.py:  This file informs the application how to respond to different web page requests and connect them to specific views or functions.
+  - forms.py: It allows to desigb the custom forms of the web page.
+  - admin.py: This file is used to register models with the Django admin interface for managing data via the admin site.
+  - tests.py: This file contains unit tests for testing the functionality of the app.
+  - migrations/: This directory contains database migrations created for the app. Migrations are used to propagate changes made to models into the database schema.
+
+static/: This directory is used to store static files (e.g., CSS, JavaScript, images, software, temporary files generated ).
+
 templates/: This directory contains HTML templates used to render views for the app.
-Static Files:
-
-In addition to app-specific static files, Django projects typically have a global static/ directory at the project level to store static files shared across multiple apps.
-Templates:
-
-Similar to static files, Django projects often have a global templates
