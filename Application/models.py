@@ -42,17 +42,6 @@ class GeneralInfo(models.Model):
         db_table= "General_Info"
 
 
-# class OrthoInfy(models.Model):
-#     OrthoNo = models.CharField(max_length=25, primary_key=True)
-#     Organism1 = models.CharField(max_length=15)
-#     Org_lncRNA1 = models.CharField(max_length=50)
-#     LncRNA_uid = models.ForeignKey(GeneralInfo, on_delete= models.SET_NULL, blank=True, null=True, related_name="Details")
-#     Organism2 = models.CharField(max_length=15)
-#     Org_lncRNA2 = models.CharField(max_length=50)
-    
-#     class Meta:
-#         db_table= "OrthoInfy"
-
 class UserOpinion(models.Model):
     Name= models.CharField(max_length=25)
     Email=models.EmailField()
