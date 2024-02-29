@@ -18,7 +18,7 @@ from django.utils.html import format_html
 from html import unescape
 
 
-
+# View: Home Page
 class  IndexView(TemplateView):
     template_name = "index.html"
     def get_context_data(self, **kwargs):
@@ -26,20 +26,24 @@ class  IndexView(TemplateView):
         HomePageContent['insert_content'] = 'Welcome to PrimBrainLnc'
         return HomePageContent
 
-
+# View: Search Page
 def search(request):
     Queries = GeneralInfo.objects.all()
     return render(request, 'search.html', {'Total_Entries':Queries})
 
+# View: Statistics
 def statistics(request):
     return render(request, 'statistics.html')
 
+# View: Downloads
 def downloads(request):
     return render(request, 'downloads.html')
 
+# View: Contact
 def contact(request):
     return render(request,'contact.html')
 
+# View: Frequently Asked Questions
 def faqs(request):
     return render(request, 'faqs.html')
 
