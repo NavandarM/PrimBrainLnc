@@ -30,7 +30,7 @@ def confirm_organism(value):
         raise forms.ValidationError("Please enter the correct name")
 
 
-# Check if sequence field has indeed fasta sequence:
+# Check if the sequence field has indeed fasta format:
 def Is_fasta_file(Content):
     line = Content.strip()
     # Check if the first line starts with '>'
@@ -38,7 +38,7 @@ def Is_fasta_file(Content):
         raise forms.ValidationError("Please enter sequence(s) in fasta format")
 
 
-## Creat a User Opinion form:
+## Create a User Opinion form:
 
 class UserMessageForm(ModelForm):
     class Meta:
@@ -73,7 +73,6 @@ class UserMessageForm(ModelForm):
 
 class ExplorationFormByIDs(forms.Form):
     ID = forms.CharField(required=False, max_length=30, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'TCONS_00000001'}), label=mark_safe("<strong>Id</strong>"))
-    #Organism= forms.CharField(required=True,max_length=15, widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter organism from List: Human, Chimp, Gorilla and Gibbon','style':'max-width: 24em'}), validators=[confirm_organism], label=mark_safe("Organism (required)"))
     organism_choices = [('Human', 'Human'), ('Chimp', 'Chimpanzee'), ('Gorilla', 'Gorilla'), ('Gibbon', 'Gibbon')]
     Organism= forms.ChoiceField(choices=organism_choices, required=False, widget=forms.Select(attrs={'class': 'form-select', 'placeholder': 'Select an organism'}), label="Select an organism")
     def clean(self):
@@ -84,7 +83,6 @@ class ExplorationFormByIDs(forms.Form):
 class ExplorationForm(forms.Form):
 
     Location= forms.CharField(required=False,max_length=100, widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Chr1:123243-234235', 'style':'max-width: 24em'}),validators=[check_for_location], label=mark_safe("Chromosome co-ordinates"),)
-    #Organism= forms.CharField(required=True,max_length=10, widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter organism from List: Human, Chimpanzee, Gorilla and Gibbon','style':'max-width: 24em'}), validators=[confirm_organism], label=mark_safe("Organism (required)"))
     organism_choices = [('Human', 'Human'), ('Chimp', 'Chimpanzee'), ('Gorilla', 'Gorilla'), ('Gibbon', 'Gibbon')]
     Organism= forms.ChoiceField(choices=organism_choices, required=False, widget=forms.Select(attrs={'class': 'form-select', 'style':'max-width: 24em'}), label= "Select an organism")
     Overlap = forms.IntegerField(required=False, widget=forms.NumberInput(attrs={'class':'form-control','style':'max-width: 12em'}), label=mark_safe("Overlap allowed:"))
@@ -110,18 +108,3 @@ class ExploreMultipleIds(forms.Form):
         cleaned_data = super().clean()
         ID=cleaned_data.get("MultiIds")
         Organism=cleaned_data.get("Organism")
-
-# class OrthologsForm(forms.Form):
-#     OrgList =[
-#         ('Select','Organism'),
-#         ('Human','Human/hsa'),
-#         ('Chimp','Chimp/pan'),
-#         ('Gorilla','Gorilla/gor'),
-#         ('Gibbon','Gibbon/gib'),
-#     ]
-#     Orthologs1 = forms.ChoiceField(required=False, choices= OrgList, label=mark_safe("<strong>Orthologs</strong>") )
-#     Orthologs2 = forms.ChoiceField(required=False, choices= OrgList, label=mark_safe("<strong>Orthologs</strong>") )
-#     lncRNAs_id = forms.CharField(required=False, max_length=30 )
-#     def clean(self):
-#         cleaned_data = super().clean()
-#         Orthologs = cleaned_data.get("Orthologs")
