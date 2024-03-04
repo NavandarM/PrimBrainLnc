@@ -1,5 +1,5 @@
 # PrimBrainLnc
-A database of brain lncRNAs from human and non-human primates multiple brain regions.
+A database of brain lncRNAs from human and non-human primates multiple brain regions. <br>
 link: http://primbrainlnc.bio.uni-mainz.de/
 
 ## How to get the database?
