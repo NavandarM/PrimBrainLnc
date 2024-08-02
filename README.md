@@ -3,7 +3,7 @@ A database of brain lncRNAs from human and non-human primates multiple brain reg
 Link: http://primbrainlnc.bio.uni-mainz.de/
 
 ## How to get the database?
-git clone git@github.com:NavandarM/PrimBrainLnc.git
+git clone git@github.com:NavandarM/PrimBrainLnc.git 
 
 ## Prerequisite
 ```bash
