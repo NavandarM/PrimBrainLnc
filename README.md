@@ -1,6 +1,8 @@
 # PrimBrainLnc
 A database of brain lncRNAs from human and non-human primates multiple brain regions. <br>
 Link: http://primbrainlnc.bio.uni-mainz.de/
+Publication: Navandar, M., Vennin, C., Lutz, B., and Gerber, S. Long non-coding RNAs expression and regulation across different brain regions in primates. Sci Data 11, 545 (2024).
+(https://doi.org/10.1038/s41597-024-03380-3)
 
 ## How to get the database?
 git clone git@github.com:NavandarM/PrimBrainLnc.git <br> 
