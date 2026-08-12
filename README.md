@@ -10,6 +10,9 @@ git clone git@github.com:NavandarM/PrimBrainLnc.git <br>
 or<br>
 git clone https://github.com/NavandarM/PrimBrainLnc.git 
 ## Prerequisite
+Choose either the venv or the Conda setup below.
+
+### Option A: venv
 ```bash
 sudo apt-get update
 sudo apt install python3-virtualenv
@@ -17,7 +20,13 @@ python3 -m venv myvirtual
 source myvirtual/bin/activate
 pip install django
 pip install -r requirements.txt  #[ "requirements.txt" is given along with the database and contains dependencies. ]
-sudo apt-get install python3-tk 
+```
+
+### Option B: Conda
+```bash
+conda create -n primbrainlnc python=3.9
+conda activate primbrainlnc
+pip install -r requirements.txt  #[ "requirements.txt" is given along with the database and contains dependencies. ]
 ```
 ## How to run the server?
 python manage.py runserver 0.0.0.0:8000 
