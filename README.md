@@ -1,32 +1,51 @@
-# PrimBrainLnc
-A database of brain lncRNAs from human and non-human primates multiple brain regions. <br>
-Link: http://primbrainlnc.bio.uni-mainz.de/
-<br>
-Publication: Navandar, M., Vennin, C., Lutz, B., and Gerber, S. Long non-coding RNAs expression and regulation across different brain regions in primates. Sci Data 11, 545 (2024).
-(https://doi.org/10.1038/s41597-024-03380-3)
+<p align="center">
+  <img src="static/images/Front_image4.svg" alt="PrimBrainLnc" width="480">
+</p>
 
-## How to get the database?
-git clone git@github.com:NavandarM/PrimBrainLnc.git <br> 
-or<br>
-git clone https://github.com/NavandarM/PrimBrainLnc.git 
-## Prerequisite
-Choose either the venv or the Conda setup below.
+<h1 align="center">PrimBrainLnc</h1>
 
-### Option A: venv
+<p align="center">
+  <a href="http://primbrainlnc.bio.uni-mainz.de/"><img src="https://img.shields.io/badge/website-live-brightgreen" alt="Website"></a>
+  <a href="https://doi.org/10.1038/s41597-024-03380-3"><img src="https://img.shields.io/badge/DOI-10.1038%2Fs41597--024--03380--3-blue" alt="DOI"></a>
+  <img src="https://img.shields.io/badge/python-3.9-blue?logo=python&logoColor=white" alt="Python 3.9">
+  <img src="https://img.shields.io/badge/Django-4.2-092E20?logo=django&logoColor=white" alt="Django 4.2">
+</p>
+
+<p align="center">
+A database of brain lncRNAs from human and non-human primates across multiple brain regions.
+</p>
+
+<p align="center">
+  <b>Live database:</b> <a href="http://primbrainlnc.bio.uni-mainz.de/">primbrainlnc.bio.uni-mainz.de</a>
+</p>
+
+## Publication
+
+Navandar, M., Vennin, C., Lutz, B., and Gerber, S. Long non-coding RNAs expression and regulation across different brain regions in primates. *Sci Data* 11, 545 (2024).
+[https://doi.org/10.1038/s41597-024-03380-3](https://doi.org/10.1038/s41597-024-03380-3)
+
+---
+
+## Getting the code
+
 ```bash
-sudo apt-get update
-sudo apt install python3-virtualenv
-python3 -m venv myvirtual
-source myvirtual/bin/activate
-pip install django
-pip install -r requirements.txt  #[ "requirements.txt" is given along with the database and contains dependencies. ]
+git clone git@github.com:NavandarM/PrimBrainLnc.git
+# or
+git clone https://github.com/NavandarM/PrimBrainLnc.git
 ```
 
-### Option B: Conda
+## Setup
+
 ```bash
 conda create -n primbrainlnc python=3.9
 conda activate primbrainlnc
-pip install -r requirements.txt  #[ "requirements.txt" is given along with the database and contains dependencies. ]
+pip install -r requirements.txt
 ```
-## How to run the server?
-python manage.py runserver 0.0.0.0:8000 
+
+> `requirements.txt` is included in the repo and lists all Python dependencies.
+
+## Running the server
+
+```bash
+python manage.py runserver 0.0.0.0:8000
+```
