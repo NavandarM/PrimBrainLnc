@@ -1,8 +1,4 @@
-from operator import length_hint
-from tkinter import CASCADE
-from tokenize import Name
 from django.db import models
-from django.forms import EmailField
 
 
 # Model for: General information of lncRNAs

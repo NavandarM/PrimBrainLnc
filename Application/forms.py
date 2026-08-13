@@ -1,13 +1,7 @@
-from dataclasses import fields
-from logging import PlaceHolder
-from unittest.util import _MAX_LENGTH
 from django import forms
 from django.forms import ModelForm
-from .models import UserOpinion, GeneralInfo
-from django.core import validators
-import re
+from .models import UserOpinion
 from django.utils.safestring import mark_safe
-from django.forms import RadioSelect
 
 
 ## Validator functions
