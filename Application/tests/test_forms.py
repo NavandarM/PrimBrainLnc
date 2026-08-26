@@ -25,13 +25,17 @@ class CheckForLocationValidatorTests(SimpleTestCase):
         with self.assertRaises(ValidationError):
             check_for_location('Chr1:abc-1413')
 
-    def test_missing_colon_raises_indexerror_not_validationerror(self):
-        # Pre-existing bug: the validator does value.split(":")[1] without checking
-        # a colon is present, so malformed input with no ":" blows up with an
-        # unhandled IndexError instead of a clean form ValidationError. Documenting
-        # the current behavior here rather than silently working around it.
-        with self.assertRaises(IndexError):
+    def test_missing_colon_raises_validationerror_not_indexerror(self):
+        with self.assertRaises(ValidationError):
             check_for_location('not-a-location')
+
+    def test_missing_hyphen_raises_validationerror_not_indexerror(self):
+        with self.assertRaises(ValidationError):
+            check_for_location('Chr1:12311413')
+
+    def test_extra_colon_raises_validationerror(self):
+        with self.assertRaises(ValidationError):
+            check_for_location('Chr1:1231:1413')
 
 
 class ConfirmOrganismValidatorTests(SimpleTestCase):

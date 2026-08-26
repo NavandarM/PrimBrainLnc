@@ -10,8 +10,12 @@ from django.utils.safestring import mark_safe
 
 def check_for_location(value):
     tmp_v1 = value.split(":")
+    if len(tmp_v1) != 2:
+        raise forms.ValidationError("Please correct location as per Example: Chr1:1231-1413")
     tmp_v2 = tmp_v1[1].split("-")
-    if not (( tmp_v2[0].strip().isdigit() and tmp_v2[1].strip().isdigit() ) and ('chr' in tmp_v1[0].lower())):
+    if len(tmp_v2) != 2 or not (
+        tmp_v2[0].strip().isdigit() and tmp_v2[1].strip().isdigit() and 'chr' in tmp_v1[0].lower()
+    ):
         raise forms.ValidationError("Please correct location as per Example: Chr1:1231-1413")
 
 # 2. For Organism:
