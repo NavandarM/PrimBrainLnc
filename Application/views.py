@@ -213,11 +213,11 @@ def Explore(request):
         if id_search_form.is_valid() and request.POST.get('Idss'):
             IDS = request.POST.get("ID").strip()
             ORG = request.POST.get("Organism").capitalize().strip()
-            ORG_Id= ORGANISM_ASSEMBLY[ORG]
 
             ## Query based on the input IDs AND extracting information.
 
             if IDS and ORG:
+                ORG_Id= ORGANISM_ASSEMBLY[ORG]
                 Ids_query = GeneralInfo.objects.filter(LncRNA_id__iexact=IDS, Organism__iexact=ORG )
                 ortho = query_processor(Ids_query, ORG )
                 Box_Plot = Data_preparation(organism=ORG, lncRNA_Id= IDS)

@@ -49,3 +49,11 @@ pip install -r requirements.txt
 ```bash
 python manage.py runserver 0.0.0.0:8000
 ```
+
+## Running tests
+
+```bash
+python manage.py test Application
+```
+
+Tests run against small fixture data (`Application/tests/fixtures`) rather than the real multi-MB static files, so they're fast and don't touch the production database. The BLAST integration test is skipped automatically if `makeblastdb`/`blastn` aren't on `PATH`.
