@@ -37,12 +37,12 @@ git clone https://github.com/NavandarM/PrimBrainLnc.git
 ## Setup
 
 ```bash
-conda create -n primbrainlnc python=3.9
+conda create -n primbrainlnc -c bioconda -c conda-forge python=3.9 blast bedtools
 conda activate primbrainlnc
 pip install -r requirements.txt
 ```
 
-> `requirements.txt` is included in the repo and lists all Python dependencies.
+> `requirements.txt` is included in the repo and lists all Python dependencies. BLAST and BEDTools are installed from the `bioconda` channel and used for the sequence-search feature.
 
 ## Running the server
 
