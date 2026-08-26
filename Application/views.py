@@ -154,18 +154,18 @@ def run_blast(input_file, database_name):
             with open(path) as fasta_file:
                 combined_fasta.write(fasta_file.read())
 
-    blast_path=os.path.join(settings.STATIC_DIR,'softwares/ncbi_blast/bin')
     out_path_db=os.path.join(settings.STATIC_DIR,'Tmp','OrganismDB')
 
-    # Build the customized BLAST database
-    subprocess.run([f"{blast_path}/makeblastdb", '-in', Input_genome_pre, '-dbtype', 'nucl', '-title', 'organism', '-out', out_path_db], check=True)
+    # Build the customized BLAST database (makeblastdb/blastn come from the
+    # conda-installed `blast` package, resolved via PATH)
+    subprocess.run(['makeblastdb', '-in', Input_genome_pre, '-dbtype', 'nucl', '-title', 'organism', '-out', out_path_db], check=True)
 
     ## Preapration for Blast
     out_path=os.path.join(settings.STATIC_DIR,'Tmp','BLAST_output.txt')
 
     # Run standalone blastn
     subprocess.run([
-        f"{blast_path}/blastn", '-query', input_file, '-db', out_path_db, '-out', out_path,
+        'blastn', '-query', input_file, '-db', out_path_db, '-out', out_path,
         '-evalue', '0.001', '-outfmt', '6', '-perc_identity', '95', '-max_target_seqs', '20',
     ], check=True)
 
@@ -213,11 +213,11 @@ def Explore(request):
         if id_search_form.is_valid() and request.POST.get('Idss'):
             IDS = request.POST.get("ID").strip()
             ORG = request.POST.get("Organism").capitalize().strip()
-            ORG_Id= ORGANISM_ASSEMBLY[ORG]
 
             ## Query based on the input IDs AND extracting information.
 
             if IDS and ORG:
+                ORG_Id= ORGANISM_ASSEMBLY[ORG]
                 Ids_query = GeneralInfo.objects.filter(LncRNA_id__iexact=IDS, Organism__iexact=ORG )
                 ortho = query_processor(Ids_query, ORG )
                 Box_Plot = Data_preparation(organism=ORG, lncRNA_Id= IDS)

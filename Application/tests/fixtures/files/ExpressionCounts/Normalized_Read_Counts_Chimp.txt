@@ -1,0 +1,2 @@
+Ids	S1_CB.bam.out	S1_STR.bam.out	S1_HIP.bam.out	S1_ACC.bam.out	S1_DPFC.bam.out	S1_VPFC.bam.out	S1_PMC.bam.out	S1_V1C.bam.out
+TCONS_TEST1	11	21	31	41	51	61	71	81

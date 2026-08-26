@@ -37,15 +37,23 @@ git clone https://github.com/NavandarM/PrimBrainLnc.git
 ## Setup
 
 ```bash
-conda create -n primbrainlnc python=3.9
+conda create -n primbrainlnc -c bioconda -c conda-forge python=3.9 blast bedtools
 conda activate primbrainlnc
 pip install -r requirements.txt
 ```
 
-> `requirements.txt` is included in the repo and lists all Python dependencies.
+> `requirements.txt` is included in the repo and lists all Python dependencies. BLAST and BEDTools are installed from the `bioconda` channel and used for the sequence-search feature.
 
 ## Running the server
 
 ```bash
 python manage.py runserver 0.0.0.0:8000
 ```
+
+## Running tests
+
+```bash
+python manage.py test Application
+```
+
+Tests run against small fixture data (`Application/tests/fixtures`) rather than the real multi-MB static files, so they're fast and don't touch the production database. The BLAST integration test is skipped automatically if `makeblastdb`/`blastn` aren't on `PATH`.
